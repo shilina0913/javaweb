@@ -7,4 +7,10 @@
     <listener>
         <listener-class> setting.ContextLoadListener</listener-class>
     </listener>
+    
+    <servlet>
+        <servlet-name>springServlet</servlet-name>
+        <servlet-class>setting.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
 </web-app>

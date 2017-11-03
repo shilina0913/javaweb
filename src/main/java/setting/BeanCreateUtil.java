@@ -22,6 +22,7 @@ public class BeanCreateUtil {
     Set<Class<?>> classSet = ClassLoadUtil.classSet;
     public static Map<Class<?>, Object> map = new HashMap<Class<?>, Object>(256);
 
+
     public BeanCreateUtil(){
         createBean();
         try {
