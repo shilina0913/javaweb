@@ -1,6 +1,10 @@
 package business;
 
 import setting.annotation.Controller;
+import setting.annotation.ModelAndView;
+import setting.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * ${DESCRIPTION}
@@ -10,4 +14,9 @@ import setting.annotation.Controller;
  */
 @Controller
 public class TestController {
+
+    @RequestMapping(name="test")
+    public ModelAndView test(HttpServletRequest req){
+        return new ModelAndView("test");
+    }
 }

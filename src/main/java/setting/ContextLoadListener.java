@@ -13,11 +13,14 @@ public class ContextLoadListener implements ServletContextListener{
 
 
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        //实例化单例bean
         ClassLoadUtil classLoadUtil = new ClassLoadUtil();
         classLoadUtil.getClassload();
+        //加载指定路径下的class文件
         classLoadUtil.loadClass("business");
+        //生成IOC
         BeanCreateUtil beanCreateUtil=new BeanCreateUtil();
+        //生成路由映射表
+        ControllerUtil controllerUtil=new ControllerUtil();
         System.out.println(BeanCreateUtil.map.isEmpty());
     }
 

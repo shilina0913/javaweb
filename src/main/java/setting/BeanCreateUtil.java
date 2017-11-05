@@ -94,7 +94,7 @@ public class BeanCreateUtil {
     /**
      * 通过反射实例化对象
      */
-    public Object createBean(Class<?> cl) {
+    public static Object createBean(Class<?> cl) {
         try {
             return cl.newInstance();
         } catch (InstantiationException e) {
