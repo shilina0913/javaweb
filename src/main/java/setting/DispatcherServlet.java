@@ -23,6 +23,7 @@ public class DispatcherServlet extends HttpServlet{
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
         Handler handler=ControllerUtil.controllerMap.get(req.getRequestURI().substring(1,req.getRequestURI().length()));
         if(handler!=null){
             Object result=HandAdapter.handle(handler,req);

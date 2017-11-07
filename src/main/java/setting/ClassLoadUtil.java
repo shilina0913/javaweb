@@ -3,6 +3,7 @@ package setting;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.net.URL;
 import java.util.*;
 
@@ -22,6 +23,33 @@ public class ClassLoadUtil{
      */
     public void getClassload() {
         classLoader = Thread.currentThread().getContextClassLoader();
+    }
+
+
+    /**
+     *获得某超类的子类class文件
+     */
+    public static Set getClassSetBySuperClass(Class<?> superClass){
+        Set<Class<?>> subClassSet=new HashSet<Class<?>>();
+        for(Class<?> cl:classSet){
+            if(cl.isAssignableFrom(superClass)){
+                subClassSet.add(cl);
+            }
+        }
+        return subClassSet;
+    }
+
+    /**
+     * 获得某注解下的class文件
+     */
+    public static Set getClassSetByAnnotation(Class<? extends Annotation> annotation){
+        Set<Class<?>> annotationClassSet=new HashSet<Class<?>>();
+        for(Class<?> cl:classSet){
+            if(cl.isAnnotationPresent(annotation)){
+                annotationClassSet.add(cl);
+            }
+        }
+        return annotationClassSet;
     }
 
 

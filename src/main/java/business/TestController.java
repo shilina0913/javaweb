@@ -1,9 +1,6 @@
 package business;
 
-import setting.annotation.Controller;
-import setting.annotation.ModelAndView;
-import setting.annotation.RequestMapping;
-import setting.annotation.ResponseBody;
+import setting.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -16,6 +13,7 @@ import java.util.Map;
  * @create 2017年11月03日
  */
 @Controller
+@Aspect(Controller.class)
 public class TestController {
 
     @RequestMapping(name="test/view")
