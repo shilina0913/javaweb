@@ -30,6 +30,33 @@ public class ClassLoadUtil{
 
 
     /**
+     *获得某超类的子类class文件
+     */
+    public static Set getClassSetBySuperClass(Class<?> superClass){
+        Set<Class<?>> subClassSet=new HashSet<Class<?>>();
+        for(Class<?> cl:classSet){
+            if(cl.isAssignableFrom(superClass)){
+                subClassSet.add(cl);
+            }
+        }
+        return subClassSet;
+    }
+
+    /**
+     * 获得某注解下的class文件
+     */
+    public static Set getClassSetByAnnotation(Class<? extends Annotation> annotation){
+        Set<Class<?>> annotationClassSet=new HashSet<Class<?>>();
+        for(Class<?> cl:classSet){
+            if(cl.isAnnotationPresent(annotation)){
+                annotationClassSet.add(cl);
+            }
+        }
+        return annotationClassSet;
+    }
+
+
+    /**
      * 获得字节码文件
      */
     public static Class<?> getClass(String name) {
