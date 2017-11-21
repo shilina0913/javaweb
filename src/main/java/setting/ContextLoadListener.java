@@ -1,5 +1,9 @@
 package setting;
 
+import setting.ioc.BeanCreateUtil;
+import setting.ioc.ClassLoadUtil;
+import setting.ioc.ControllerUtil;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -13,15 +17,13 @@ public class ContextLoadListener implements ServletContextListener{
 
 
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        ClassLoadUtil classLoadUtil = new ClassLoadUtil();
-        classLoadUtil.getClassload();
+        ClassLoadUtil.getClassload();
         //加载指定路径下的class文件
-        classLoadUtil.loadClass("business");
+        ClassLoadUtil.loadClass("business");
         //生成IOC
         BeanCreateUtil beanCreateUtil=new BeanCreateUtil();
         //生成路由映射表
         ControllerUtil controllerUtil=new ControllerUtil();
-        System.out.println(BeanCreateUtil.map.isEmpty());
     }
 
 

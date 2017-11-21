@@ -2,6 +2,8 @@ package setting;
 
 import setting.annotation.ModelAndView;
 import setting.annotation.ResponseBody;
+import setting.ioc.BeanCreateUtil;
+import setting.ioc.ControllerUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,9 +25,11 @@ public class DispatcherServlet extends HttpServlet{
 
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        Handler handler=ControllerUtil.controllerMap.get(req.getRequestURI().substring(1,req.getRequestURI().length()));
+        Handler handler= ControllerUtil.controllerMap.get(req.getRequestURI().substring(1,req.getRequestURI().length()));
         if(handler!=null){
-            Object result=HandAdapter.handle(handler,req);
+            Class<?> cl=handler.getClassName();
+            Object targetObject= BeanCreateUtil.map.get(cl);
+            Object result=HandAdapter.handle(handler,targetObject,req);
             //进行视图解析
             if(handler.getMethod().isAnnotationPresent(ResponseBody.class)){
                 Resolver resolver=new Resolver();

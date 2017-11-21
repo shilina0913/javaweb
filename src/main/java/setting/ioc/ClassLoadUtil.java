@@ -1,8 +1,11 @@
-package setting;
+package setting.ioc;
+
+import com.sun.xml.internal.ws.server.sei.SEIInvokerTube;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.net.URL;
 import java.util.*;
 
@@ -13,22 +16,23 @@ import java.util.*;
  * @create 2017年09月13日
  */
 public class ClassLoadUtil{
-
-    public ClassLoader classLoader;
+    public static ClassLoader classLoader;
     public static Set<Class<?>> classSet = new HashSet<Class<?>>();
+
 
     /**
      * 获得类加载器
      */
-    public void getClassload() {
-        classLoader = Thread.currentThread().getContextClassLoader();
+    public static void getClassload() {
+      classLoader = Thread.currentThread().getContextClassLoader();
+
     }
 
 
     /**
      * 获得字节码文件
      */
-    public Class<?> getClass(String name) {
+    public static Class<?> getClass(String name) {
         try {
             return Class.forName(name);
         } catch (ClassNotFoundException e) {
@@ -38,7 +42,34 @@ public class ClassLoadUtil{
         return null;
     }
 
-    public List<String> loadClass(String path) {
+    /**
+     *获得指定注解的class
+     */
+    public static Set getClassSetByAnnotation(Class<? extends Annotation> annotation){
+        Set<Class<?>> set=new HashSet<Class<?>>();
+        for(Class cl:classSet){
+            if(cl.isAnnotationPresent(annotation)){
+                set.add(cl);
+            }
+        }
+        return set;
+    }
+
+    /**
+     *获得指定父类的子类
+     */
+    public static Set getClassSetBySuperClass(Class<?> c){
+        Set<Class<?>> set=new HashSet<Class<?>>();
+        for(Class cl:classSet){
+            if(c.isAssignableFrom(cl)){
+                set.add(cl);
+            }
+        }
+        return set;
+    }
+
+
+    public static List<String> loadClass(String path) {
         List<String> list = new ArrayList<String>();
         // 资源定位
         try {
@@ -60,7 +91,7 @@ public class ClassLoadUtil{
     /**
      * 将指定位置的class文件存放至set里
      */
-    public void addClass(String path, String packageName) {
+    public static void addClass(String path, String packageName) {
         File[] files = new File(path).listFiles(new FileFilter() {
             @Override
             public boolean accept(File file) {

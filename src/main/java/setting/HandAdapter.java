@@ -12,9 +12,7 @@ import java.util.Map;
  */
 public class HandAdapter {
 
-    public static Object handle(Handler hanler, HttpServletRequest req){
-        Class<?> cl=hanler.getClassName();
-        Object object=BeanCreateUtil.createBean(cl);
+    public static Object handle(Handler hanler, Object object,HttpServletRequest req){
         Method method=hanler.getMethod();
         Map<String,Object> map=new HashMap<String,Object>(16);
         Enumeration params=req.getParameterNames();

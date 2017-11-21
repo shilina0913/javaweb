@@ -1,5 +1,6 @@
-package setting;
+package setting.ioc;
 
+import setting.Handler;
 import setting.annotation.RequestMapping;
 
 import java.lang.reflect.Method;
@@ -13,7 +14,7 @@ import java.util.Set;
  */
 public class ControllerUtil {
 
-        static Map<String,Handler> controllerMap=new HashMap<String,Handler>(256);
+        public static Map<String, Handler> controllerMap=new HashMap<String,Handler>(256);
         static {
             Set<Class<?>> classSet = ClassLoadUtil.classSet;
             for (Class<?> cl : classSet) {

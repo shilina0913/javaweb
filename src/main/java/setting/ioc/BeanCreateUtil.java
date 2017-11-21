@@ -1,8 +1,9 @@
-package setting;
+package setting.ioc;
 
 import setting.annotation.Autowired;
 import setting.annotation.Controller;
 import setting.annotation.Service;
+import setting.aop.AspectUtil;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -23,14 +24,18 @@ public class BeanCreateUtil {
     public static Map<Class<?>, Object> map = new HashMap<Class<?>, Object>(256);
 
 
+
+
     public BeanCreateUtil(){
         createBean();
+        AspectUtil.setBean();
         try {
             injectField();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
     }
+
 
 
     /**
@@ -42,6 +47,13 @@ public class BeanCreateUtil {
                 map.put(cl, createBean(cl));
             }
         }
+    }
+
+    /**
+     * 将对象放置bean map中
+     */
+    public static void setBean(Class<?> cl,Object object){
+        map.put(cl,object);
     }
 
     /**
